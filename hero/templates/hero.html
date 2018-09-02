@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>英雄列表</title>
+</head>
+<body>
+    <ul>
+        {% for hero in hero_list %}
+        <li>
+            {{ hero.hname }}&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="/myhero/hero_delete/{{ hero.id }}">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="/myhero/hero_edit/{{ hero.id }}">编辑</a>
+        </li>
+        {% endfor %}
+        <a href="/myhero/hero_add">添加</a>
+    </ul>
+</body>
+</html>

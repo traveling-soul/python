@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+<body>
+<form action="/myhero/login_handler/" method="POST">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>账号</td>
+            <td><input type="text" name="uname"/></td>
+            <td><span id="uname"  style="border: 0; color: red;">{{ name_error }}</span></td>
+        </tr>
+        <tr>
+            <td>密码</td>
+            <td><input type="password" name="upwd"></td>
+            <td><span id="upwd" style="color: red;">{{ pwd_error }}</span></td>
+        </tr>
+        <tr>
+            <td>验证码</td>
+            <td><input type="text" name="verificationcode"/></td>
+            <td><img src="/myhero/verification_code" alt="验证码" id="verificationcode"/></td>
+            <td><span id="code" style="color: red;"/>{{ code_error }}</span></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="提交"/></td>
+            <td><input type="reset" value="重置"/></td>
+        </tr>
+    </table>
+</form>
+<script>
+    window.onload = function(){
+        src = "/myhero/verification_code?n="
+        code = document.getElementById("verificationcode")
+        code.onclick = function(){
+            code.src = src + new Date().getTime()
+        }
+    }
+</script>
+</body>
+</html>

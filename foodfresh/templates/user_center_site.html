@@ -1,0 +1,77 @@
+{% extends 'base_user_center.html' %}
+{% block right %}
+	<div class="right_content clearfix">
+			<h3 class="common_title2">收货地址</h3>
+			<div class="site_con">
+				<dl>
+					<dt>当前地址：</dt>
+					{% if address_list %}
+						{% for address in address_list %}
+							<dd>
+                                {% if address.is_default %}
+								<input type="radio" class="choice" name="choice" id="{{address.id}}" value="{{address.id}}" checked/>{{address.addr}} （{{address.receiver}} 收） {{address.phone}}
+								{% else %}
+                                <input type="radio" class="choice" name="choice" id="{{address.id}}" value="{{address.id}}"/>{{address.addr}} （{{address.receiver}} 收） {{address.phone}}
+                                {% endif %}
+								<a href="/user/edit_site/{{ address.id }}" id="{{ address.id }}">编辑</a>
+								<a href="/user/del_site/{{ address.id }}">删除</a>
+							</dd>
+						{% endfor %}
+					{% else %}
+					<dd>无默认地址</dd>
+					{% endif %}
+				</dl>
+			</div>
+			<h3 class="common_title2">添加地址</h3>
+			<div class="site_con">
+				<form method="post" action="{% if address %}/user/edit_site/{{ address.id }}/{% else %}/user/site/{% endif %}">
+					{% csrf_token %}
+					<div class="form_group">
+						<label>收件人：</label>
+						{% if address.receiver %}
+						<input type="text" name="receiver" value="{{ address.receiver }}">
+						{% else  %}
+						<input type="text" name="receiver" value="">
+						{% endif %}
+					</div>
+					<div class="form_group form_group2">
+						<label>详细地址：</label>
+						{% if address.addr %}
+						<textarea class="site_area" name="address">{{ address.addr }}</textarea>
+						{% else %}
+						<textarea class="site_area" name="address"></textarea>
+						{% endif %}
+					</div>
+					<div class="form_group">
+						<label>邮编：</label>
+						{% if address.zip_code %}
+						<input type="text" name="zip_code" value="{{ address.zip_code }}">
+						{% else %}
+						<input type="text" name="zip_code">
+						{% endif %}
+					</div>
+					<div class="form_group">
+						<label>手机：</label>
+						{% if address.phone %}
+						<input type="text" name="phone" value="{{ address.phone }}">
+						{% else %}
+						<input type="text" name="phone">
+						{% endif %}
+					</div>
+
+					<input type="submit" name="" value="提交" class="info_submit">
+				</form>
+			</div>
+	</div>
+<script>
+    function data(){
+		$.get(
+			url='/user/site_response/?id='+$(this).val(),
+		)
+	}
+    $('.choice').click(data)
+</script>
+{% endblock %}
+
+
+

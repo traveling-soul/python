@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		{% if query %}
+			<h3>搜索结果如下： </h3>
+			{% for result in page.object_list %}
+				<a href="{% url 'food:detail' result.object.id %}">{{ result.object.name }}</a><br/>
+                <img src="{{ result.object.image.url }}">
+			{% empty %}
+				<p>啥也没找到</p>
+			{% endfor %}
+			<div>
+			{% if page.has_previous %}
+				<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">&laquo; 上一页</a>
+            {% endif %}
+			{% if page.has_next %}
+				<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">下一页 &raquo;</a>
+			{% endif %}
+			</div>
+		{% endif %}
+	</body>
+</html>

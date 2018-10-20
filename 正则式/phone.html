@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>正则式应用</title>
+		<script type="text/javascript">
+			function checkPhone(){
+				var checkText=document.getElementById("mytext").value;
+				var myRegExp=/^(\d{3,4})|\d{3,4}-?\d{7,8}$/;
+				
+				if(myRegExp.test(checkText)){
+					return true;
+				}
+				else{
+					document.write("电话号码输入有误，请重新输入。");
+					return false;
+				}
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<form id="myform" action="submit.html" onsubmit="return checkPhone()">
+		请输入电话号码：<input type="text" id="mytext">
+		<input type="submit" value="提交">
+		<input type="reset" value="重置">
+		
+	</body>
+</html>

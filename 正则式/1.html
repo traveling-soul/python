@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>正则式</title>
+		<script type="text/javascript">
+		    /*
+			//replace()
+			var regx=new RegExp("class","ig");
+			var regx2=/class/ig;
+			var str="Define a Class with a class definition.";
+			document.write("原字符串：",str,"<br>");
+			document.write("替换后的字符串：",str.replace(regx,"abc"),"<br>");
+			document.write("替换后的字符串：",str.replace(regx2,"abc"),"<br>");
+			*/
+			
+			
+			var regx=/class/ig;
+			var str="Define a Class with a class definition.";
+			var arrExp=regx.exec(str);
+			document.write("原字符串：",str,"<br>");
+			document.write("正则表达式：",regx.source,"<br>");
+			document.write("该正则式是否开始了g标志：",regx.global,"<br>");
+			document.write("该正则式是否开始了i标志：",regx.ignoreCase,"<br>");
+			document.write("匹配的子字符串：",arrExp,"<br>");
+			document.write("匹配的子字符串类型：",typeof arrExp,"<br>");
+			document.write("该次匹配后的字符位置：",regx.lastIndex,"<br>");
+			document.write("Define a C".length);
+			
+			
+			/*
+			var str="Define a Class with a class definition.";
+			
+			var regExp1=/defin(\w+)/i;
+			var arrExp1=regExp1.exec(str);
+			
+			var regExp2=/defin\w+/i;
+			var arrExp2=regExp2.exec(str);
+			
+			document.write("原字符串：",str,"<br>");
+			document.write("正则表达式：",regExp1.source,"<br>");
+			document.write("其匹配的子字符串：",arrExp1,"<br>");
+			document.write("正则表达式：",regExp2.source,"<br>");
+			document.write("其匹配的子字符串：",arrExp2,"<br>");
+			*/
+			
+			/*
+			var str="Define a Class with a class definition.";
+			var regExp=/defin(\w+)/i;
+			var arrExp=regExp.exec(str);
+			document.write("原字符串：",str,"<br>");
+			document.write("正则表达式：",regExp.source,"<br>");
+			document.write("其匹配的子字符串：",arrExp,"<br>");
+			document.write("正则式中第一个字表达式所匹配的子字符串：",RegExp.$1,"<br>");
+			*/
+			
+			/*
+			var str="Define a Class with a class definition.";
+			var regExp=/defin(\w+)/ig;
+			
+			document.write("原字符串：",str,"<br>");
+			document.write("正则表达式：",regExp.source,"<br>");
+			
+			var arrExp=regExp.exec(str);
+			document.write("第一次匹配的子字符串：",arrExp,"<br>");
+			document.write("匹配结束的位置：",regExp.lastIndex,"<br>");
+			
+			arrExp=regExp.exec(str);
+			document.write("第二次匹配的子字符串：",arrExp,"<br>");
+			document.write("匹配结束的位置：",regExp.lastIndex,"<br>");
+			*/
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

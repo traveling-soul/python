@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>使用正则式和DOM结合</title>
+	<script type="text/javascript">	
+		function upDate(){
+			var bNode=document.getElementsByTagName("p");
+			for(var i=0;i<bNode.length;i++){
+				if(bNode[i].firstChild!=null){
+					var textNode=bNode[i].firstChild;
+					if(textNode.nodeType==3){
+						var myRegExp=/you/i;
+						if(myRegExp.test(textNode.data)){
+							bNode[i].removeChild(textNode);
+							var textNode1=document.createTextNode(RegExp.leftContext);
+							var textNode2=document.createTextNode(RegExp.lastMatch);
+							var textNode3=document.createTextNode(RegExp.rightContext);
+							
+							var fontNode=document.createElement("font");
+							var attNode=document.createAttribute("color");
+							attNode.value="red";
+							fontNode.setAttributeNode(attNode);
+							fontNode.appendChild(textNode2);
+							
+							bNode[i].appendChild(textNode1);
+							bNode[i].appendChild(fontNode);
+							bNode[i].appendChild(textNode3);
+						}
+					}
+				}
+			}
+		}
+	</script>
+	</head>
+	<body onload="upDate()">
+		<h1>The furthest distance in the world</h1>
+		<p>The furthest distance in the world</p>
+		<p>is not between life and death</p>
+		<p>But when I stand in front of you</p>
+		<p>Yet you don't know that</p>
+		<p>I love you</p>
+	</body>
+</html>

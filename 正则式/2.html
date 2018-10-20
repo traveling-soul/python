@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>正则式</title>
+		<script type="text/javascript">
+			var str="Define a Class with a class definition.";
+			var regExp=/defin(\w+)/ig;
+			
+			document.write("原字符串：",str,"<br>");
+			document.write("正则表达式：",regExp.source,"<br>");
+			
+			var i=0;
+			while(regExp.test(str)){
+			i++;
+				document.write("第",i,"次匹配成功的情况:","<br>");
+				document.write("匹配结束的位置:"+regExp.lastIndex,"<br>");
+				document.write("用于匹配的字符串:",RegExp.input,"<br>");
+				document.write("匹配成功的字符串:",RegExp.lastMatch,"<br>");
+				document.write("匹配成功的分组:",RegExp.lastParen,"<br>");
+				document.write("匹配成功的子字符串的左侧子字符串:",RegExp.leftContext,"<br>");
+				//document.write("是否指定m标志:",RegExp.multiline,"<br>");
+				document.write("匹配成功的子字符串的右侧子字符串:",RegExp.rightContext,"<br>");
+			}
+		
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

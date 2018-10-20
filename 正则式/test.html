@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.green{
+				border:2px solid green;
+			}
+			
+			.red{
+				border:2px solid red;
+			}
+		</style>
+		<script type="text/javascript">
+			function rec(){
+				var num=document.getElementById("txt");
+				var reg=/^\w{6,10}$/;
+				if(reg.test(num)){
+					//num.className="red";
+					alert("匹配成功");
+				}else{
+					//num.className="green";
+					alert("匹配不成功");
+				}
+			}
+			
+		</script>
+	</head>
+	<body>
+		输入数字：<input type="text" id="txt" onblur="rec()">
+	</body>
+</html>

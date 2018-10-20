@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<title>正则式应用</title>
+		<script type="text/javascript">
+			function checkId(){
+				var checkText=document.getElementById("mytext").value;
+				var myRegExp=/^\d{17}[\d|x]$|^\d{15}$/i;
+				
+				if(myRegExp.test(checkText)){
+					return true;
+				}
+				else{
+					document.write("身份证号输入有误，请重新输入。");
+					return false;
+				}
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<form id="myform" action="submit.html" onsubmit="return checkId()">
+		请输入身份证号：<input type="text" id="mytext">
+		<input type="submit" value="提交">
+		<input type="reset" value="重置">
+		
+	</body>
+</html>

@@ -1,0 +1,28 @@
+booklist{
+	display:block;
+	margin:2px;
+	padding:2px;
+	width:300px;
+	border: 1px solid #000;
+	background-color:#EEE;
+	font:12px georgia;
+}
+book{
+	display:block;
+	margin:2px;
+	padding:2px;
+	border: 1px solid #000;
+}
+name{
+	display:block;
+	font-style:italic;
+	font-weight:bold;
+}
+price{
+	display:block;
+	font:12px georgia;
+}
+description{
+	display:block;
+	font-size:11px;
+}

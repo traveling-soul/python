@@ -1,0 +1,23 @@
+<html xmls="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>XML DOM</title>
+	</head>
+	<body>
+		<script>
+			var xmlDom=new ActiveXObject("Microsoft.XMLDOM");
+			xmlDom.async=false;
+			xmlDom.load("booklist.xml");
+			
+			var stylesheet=new ActiveXObject("Microsoft.XMLDOM");
+			stylesheet.async=false;
+			stylesheet.resolveExternals=false;
+			stylesheet.load("booklist.xsl");
+			
+			//var newNode=xmlDom.document.documentElement.childNodes[2].cloneNode(true);
+			//xmlDom.documentElement.appendChild(newNode);
+			
+			document.write(xmlDom.transformNode(stylesheet));
+		</script>
+	</body>
+</html>

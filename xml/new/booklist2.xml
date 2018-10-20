@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="xsl\booklist.xsl"?>
+<booklist>
+	<book>
+		<name>Ajax</name>
+		<price>$5.95</price>
+		<description>Foundation of Ajax.</description>
+	</book>
+	<book>
+		<name>Ajax Patterns</name>
+		<price>$7.95</price>
+		<description>Instructions of Ajax Patterns.</description>
+	</book>
+	<book>
+		<name>Ajax Web App</name>
+		<price>$8.95</price>
+		<description>Edition 2</description>
+	</book>
+	<book>
+		<name>Core CSS</name>
+		<price>$4.50</price>
+		<description>A book for CSS.</description>
+	</book>
+	<book>
+		<name>JSF and Ajax</name>
+		<price>$6.95</price>
+		<description>Apress</description>
+	</book>
+</booklist>

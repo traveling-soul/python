@@ -1,0 +1,10 @@
+/* CSS Document */
+name { display:block; }
+description { display:block; }
+picture{
+	display:block;
+	width:500px;
+	height:726px;
+	background:url("..\\img\\01.jpeg"); /* 路径分隔符/需要转义 */
+	float:right;
+}

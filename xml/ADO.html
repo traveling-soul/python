@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>ADO方法</title>
+		<script>
+			function moveNext(){
+				if(books.recordset.absoluteposition < books.recordset.recordcount)
+					books.recordset.moveNext();
+			}
+			
+			function movePrevious(){
+				if(books.recordset.absoluteposition > 1)
+					books.recordset.movePrevious();
+			}
+		</script>
+	</head>
+	<body>
+		<p>
+			<xml id="books" src="booklist.xml"></xml>
+			<table>
+				<tr>
+					<td>Name:</td>
+					<td><span id="name" datasrc="#books" datafld="name"></span></td>
+				</tr>
+				<tr>
+					<td>Price:</td>
+					<td><span id="price" datasrc="#books" datafld="price"></span></td>
+				</tr>
+				<tr>
+					<td>description:</td>
+					<td><span id="description" datasrc="#books" datafld="description"></span></td>
+				</tr>
+			</table>
+		</p>
+		<p>
+			<input type="button" value="previous" onclick="movePrevious()"/>
+			<input type="button" value="next" onclick="moveNext()"/>
+		</p>
+	</body>
+</html>

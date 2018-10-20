@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="Customers1.xsl"?>
+<customers>
+	<customer customerid="1">
+		<firstname>John</firstname>
+		<lastname>Cranston</lastname>
+		<homephone>(445) 269-9857</homephone>
+		<notes>
+			<![CDATA[He registered as our member since 1990.John has NICE credity.
+			He is a  member of Custon Internation.]]>
+		</notes>
+	</customer>
+	<customer customerid="2">
+		<firstname>Annie</firstname>
+		<lastname>Loskar</lastname>
+		<homephone>(445) 269-9482</homephone>
+		<notes>
+			<![CDATA[Annie registered as our member since 1984.He became our VIP customer 
+			in 1996.]]>
+		</notes>
+	</customer>
+	<customer customerid="3">
+		<firstname>Bernie</firstname>
+		<lastname>Christo</lastname>
+		<homephone>(445) 269-3412</homephone>
+		<notes>
+			<![CDATA[Bernie registered as our member since June 2010.He is a new member.]]>
+		</notes>
+	</customer>
+	<customer customerid="4">
+		<firstname>Ernestine</firstname>
+		<lastname>Borrison</lastname>
+		<homephone>(445) 269-7742</homephone>
+		<notes>
+			<![CDATA[Ernestine registered as our member since July 2010.She is a Temp meber.]]>
+		</notes>
+	</customer>
+</customers>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="css\products.css"?>
+<products>
+	<product id="p4" class="special">
+		<name>Delta</name>
+		<price>800</price>
+		<stock>4</stock>
+		<country>Denmark</country>	
+	</product>
+</products>

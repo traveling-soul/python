@@ -1,0 +1,69 @@
+{% extends "echarts/index.html" %}
+{% block right %}
+<div id="main" style="width: 600px;height: 400px;"></div>
+<script>
+    function get_graph(){
+        var myChart = echarts.init(document.getElementById('main'));
+        var option = {
+            title: {
+                text: '不同省份的商品销量占比',
+                x: 'center'
+            },
+            toolbox: {
+                show : true,
+                feature : {
+                    mark : {show: true},
+                    dataZoom : {show: true},
+                    dataView : {show: true, readOnly: false},
+                    restore : {show: true},
+                    saveAsImage : {show: true}
+                }
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{c} ({d}%)'
+			},
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+            },
+            dataset: {
+                source: arr
+            },
+            series: [{
+                name: '省份',
+                type: 'pie',
+                radious: '55%',
+                center: ['50%', '60%'],
+            }]
+
+        };
+        myChart.setOption(option);
+    }
+
+    var arr = []
+
+    function get_data() {
+        $.ajax({
+            url: '/echarts/get_pie/',
+            type: 'GET',
+            dataType: 'JSON',
+            data: {},
+            success: function (data) {
+                //console.info(data.my_list)
+                for(var i=0;i<data.my_list.length;i++)
+                {
+                    arr.push( data.my_list[i])
+                }
+                console.info(arr)
+                get_graph()
+            },
+            error: function () {
+                alert("服务器出错了");
+            }
+        });
+    }
+    get_data()
+
+</script>
+{% endblock %}

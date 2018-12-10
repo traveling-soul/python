@@ -1,0 +1,32 @@
+{% extends "echarts/base.html" %}
+{% block outer %}
+    <script src="/static/js/jquery-1.12.4.js"></script>
+    <script src="/static/js/wordcloud2.js"></script>
+    <script src="/static/js/echarts.js"></script>
+    <link rel="stylesheet" href="/static/css/base.css">
+{% endblock %}
+{% block top %}
+    <div class="top">
+        淘宝商品数据分析平台
+    </div>
+{% endblock %}
+{% block mid %}
+<div class="mid">
+    <div class="left">
+        <ul>
+            <!--<li><a href="/echarts/price_analysis/">价格分析</a></li>
+            <li><a href="/echarts/sale_analysis/">销量分析</a></li>
+            <li><a href="/echarts/price_distribute/">价格分布</a></li>-->
+            <li><a href="/echarts/scatter_sales/">价格对销售量影响</a></li>
+            <li><a href="/echarts/pie_sales/">不同省份的商品销量占比</a></li>
+            <li><a href="/echarts/province_sales/">不同省份的商品平均销量</a></li>
+        </ul>
+    </div>
+
+    <div class="right">
+        {% block right %}
+
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}

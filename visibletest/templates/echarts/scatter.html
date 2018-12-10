@@ -1,0 +1,103 @@
+﻿{% extends "echarts/index.html" %}
+{% block right %}
+<div id="main" style="width: 600px;height:400px;"></div>
+
+<script type="text/javascript">
+    function get_graph(dataset){
+        var myChart = echarts.init(document.getElementById('main'));
+
+    option = {
+    title : {
+        text: '价格对销售量的影响',
+    },
+    tooltip : {
+        trigger: 'axis',
+        showDelay : 0,
+        axisPointer:{
+            show: true,
+            type : 'cross',
+            lineStyle: {
+                type : 'dashed',
+                width : 1
+            }
+        }
+    },
+    legend: {
+        data: ['销量']
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataZoom : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    xAxis : [
+        {
+            type : 'category',
+            scale:true,
+            axisLabel : {
+                formatter: '{value} '
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            scale:true,
+            axisLabel : {
+                formatter: '{value} '
+            }
+        }
+    ],
+    series : [
+        {
+            name:'销量',
+            type:'scatter',
+            data: arr,
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            markLine : {
+                data : [
+                    {type : 'average', name: '平均值'}
+                ]
+            }
+        }
+    ]
+};
+
+    // 使用刚指定的配置项和数据显示图表
+    myChart.setOption(option);
+    }
+
+    var arr = []
+    function get_data() {
+        $.ajax({
+            url: '/echarts/get_scatter/',
+            type: 'GET',
+            dataType: 'JSON',
+            data: {},
+            success: function (data) {
+                for(var i=0;i<data.price_list.length;i++)
+                {
+                    arr.push([data.price_list[i], data.sale_list[i]])
+                }
+                console.log(arr)
+                get_graph()
+            },
+            error: function () {
+                alert("服务器出错了");
+            }
+        });
+    }
+    get_data()
+
+</script>
+{% endblock %}

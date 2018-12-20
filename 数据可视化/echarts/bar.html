@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/echarts.js"></script>
+	</head>
+	<body>
+		<div id="main" style="width: 600px;height: 400px;"></div>
+		<script>
+			var myChart = echarts.init(document.getElementById('main'));
+			var option = {
+				title: {
+					text: 'Echarts 入门示例'
+				},
+				// 工具箱
+				toolbox: {
+					show: true,
+					feature: {
+						// 数据视图
+						dataView: {
+							show: true
+						},
+						// 还原
+						restore: {
+							show: true
+						},
+						// 缩放
+						dataZoom: {
+							show: true
+						},
+						// 保存
+						saveAsImage: {
+							show: true
+						},
+						// 转换
+						magicType: {
+							type: ['line', 'bar']
+						}
+					}
+				},
+				// 弹窗
+				tooltip: {
+					trigger: 'none',
+					axisPointer: {
+						type: 'cross'
+					}
+				},
+				legend: {
+					data: ['销量']
+				},
+				dataset: {
+					source: [
+						["衬衫", 5],
+						["羊毛衫", 20],
+						["雪纺衫", 36],
+						["裤子", 10],
+						["高跟鞋", 10],
+						["袜子", 20]
+					]
+				},
+				xAxis: {
+					type: 'category',
+					name: '商品',
+					axisPointer: {
+						label: {
+							formatter: function(params){
+								console.info(params)
+								return params.value + (params.seriesData.length ? '：' + params.seriesData[0].data : '')
+							}
+						}
+					}
+				},
+				yAxis: {
+					type: 'value',
+					name: '销量'
+				},
+				series: [{
+					name: '销量',
+					type: 'bar',
+					// 标记点
+					markPoint: {
+						data: [
+							{
+								type: 'max',
+								name: '最大值'
+							},
+							{
+								type: 'min',
+								name: '最小值',
+								symbol: 'arrow',
+								
+							}
+						]
+					},
+					// 标记线
+					markLine: {
+						data: [
+								{
+									type: 'average',
+									name: '平均值'
+								}
+						]
+					},
+				}]
+				
+			};
+			myChart.setOption(option);
+		</script>
+	</body>
+</html>

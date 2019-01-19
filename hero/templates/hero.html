@@ -3,17 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>英雄列表</title>
+    <script src="/static/js/jquery-1.12.4.js"></script>
+    <script src="/static/js/myjs.js"></script>
 </head>
 <body>
-    <ul>
-        {% for hero in hero_list %}
-        <li>
-            {{ hero.hname }}&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/myhero/hero_delete/{{ hero.id }}">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/myhero/hero_edit/{{ hero.id }}">编辑</a>
-        </li>
-        {% endfor %}
-        <a href="/myhero/hero_add">添加</a>
+    <ul id="content">
     </ul>
+    <p id="page">
+    </p>
 </body>
 </html>
+<script>
+        function page(page_now=1){
+            $.ajax({
+                'url': '/myhero/hero_page/'+page_now,
+                'data': {},
+                'dataType': 'json',
+                success: function(data){
+                    var hero_list = eval('('+data.hero_list+')')
+                    var lis = ""
+                    $.each(hero_list,function(index,value){
+                        var id = value.pk
+                        var hname = value.fields["hname"]
+                        lis += "<li><a href='/myhero/hero_edit/"+ id + "'>" + hname + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='#'>删除</a></li>"
+                    })
+
+                    var page_list = data.page_list
+                    var p_now = data.page_now
+                    var as = ""
+                    if(data.page_prev){
+                        as += '<a href="'+(page_now-1)+'" title="'+(page_now-1)+'" onclick="return false">上一页</a>'
+                    }
+                    $.each(page_list, function(index,value){
+                        var page_now = value
+                       if(page_now == p_now){
+                            as += '<span>' + page_now + '</span>'
+                       }else{
+                            as += '<a href="'+page_now+'" title="'+page_now+'" onclick="return false">' + page_now + '</a>'
+                       }
+                    })
+                    if(data.page_next){
+                        as += '<a href="'+(page_now+1)+'" title="'+(page_now+1)+'" onclick="return false">下一页</a>'
+                    }
+
+                    $('#content').html(lis)
+                    $("#page").html(as)
+                },
+                'beforeSend': function(){
+                    $('#content').html('<img src="/static/img/loading.gif"/>')
+                }
+            })
+        }
+        $(function(){
+            page()
+            $("#page").delegate("a", "click", function(){
+                page(this.title)
+            })
+        })
+    </script>
+
+
+
+
+
+
+

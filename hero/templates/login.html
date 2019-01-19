@@ -5,7 +5,7 @@
     <title>登录页面</title>
 </head>
 <body>
-<form action="/myhero/login_handler/" method="POST">
+<form action="/user/login_handler/" method="POST">
     {% csrf_token %}
     <table>
         <tr>
@@ -21,7 +21,7 @@
         <tr>
             <td>验证码</td>
             <td><input type="text" name="verificationcode"/></td>
-            <td><img src="/myhero/verification_code" alt="验证码" id="verificationcode"/></td>
+            <td><img src="/user/verification_code" alt="验证码" id="verificationcode"/></td>
             <td><span id="code" style="color: red;"/>{{ code_error }}</span></td>
         </tr>
         <tr>
@@ -32,8 +32,9 @@
 </form>
 <script>
     window.onload = function(){
-        src = "/myhero/verification_code?n="
+        src = "/user/verification_code?n="
         code = document.getElementById("verificationcode")
+        //为验证码添加click事件
         code.onclick = function(){
             code.src = src + new Date().getTime()
         }

@@ -5,7 +5,7 @@
     <title>编辑英雄</title>
 </head>
 <body>
-<form action="/myhero/hero_add_handler/" method="POST">
+<form action="/myhero/hero_add_handler/" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <table>
         <tr>
@@ -27,6 +27,15 @@
             <td>简介</td>
             <td>
                 <textarea name="hdesc" style="width: 240px; height: 100px;"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>图片</td>
+            <td>
+                <input type="file" name="hpic"/>
+            </td>
+            <td>
+                <span name="upload_error" style="color: red;"/>{{ upload_error }}</span>
             </td>
         </tr>
         <tr>

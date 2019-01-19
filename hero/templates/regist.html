@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <script src="/static/js/myjs.js"></script>
+</head>
+<body>
+<form action="/user/regist_handler/" method="POST" id="myform">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>账号</td>
+            <td><input type="text" name="uname" id="uname"/></td>
+            <td><span id="uname_error"></span></td>
+        </tr>
+        <tr>
+            <td>密码</td>
+            <td><input type="password" name="upwd" id="upwd"></td>
+            <td><span id="upwd_error"></span></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="注册"/></td>
+            <td><input type="reset" value="重置"/></td>
+        </tr>
+    </table>
+</form>
+<script>
+    var uname = document.getElementById("uname")
+    var upwd = document.getElementById("upwd")
+    var myform = document.getElementById("myform")
+    //验证用户名是否合法，合法为true，否则为false
+    function check_name(){
+        var flag = false
+        //alert(uname)
+        //alert(uname.value)
+        //lert(uname.value.length)
+        var value = uname.value.strip()
+        if(value.length==0){
+            document.getElementById("uname_error").innerText = "用户名不能为空"
+        }else if(value.length < 6){
+            document.getElementById("uname_error").innerText = "用户名长度至少6位"
+        }else{
+            document.getElementById("uname_error").innerText = ""
+            flag = true
+        }
+        return flag
+    }
+    //验证密码是否合法，合法则为true，否则为false
+    function check_pwd(){
+        var flag = false
+        var value = upwd.value.strip()
+        if(value.length==0){
+            document.getElementById("upwd_error").innerText = "密码不能为空"
+        }else if(value.length<6){
+            document.getElementById("upwd_error").innerText = "密码长度至少6位"
+        }else if(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/g.test(value)){
+            document.getElementById("upwd_error").innerText = ""
+            flag = true
+        }else{
+            document.getElementById("upwd_error").innerText = "密码必须是字母数字混合的"
+        }
+        return flag
+    }
+    //为密码文本框添加onblur事件
+    upwd.onblur = function(){
+        check_pwd()
+    }
+    //为用户文本框添加onblur事件
+    uname.onblur = function(){
+        if(check_name()){
+            my_ajax('/user/check_username?uname='+uname.value, function(data){
+              if(data == "1"){
+                    document.getElementById("uname_error").innerText = "用户名已经存在"
+                    myform.onsubmit = function(){
+                        return false
+                    }
+                    document.getElementById("uname_error").style.color = "red"
+               }else{
+                    document.getElementById("uname_error").innerText = "用户名可用"
+                    myform.onsubmit = function(){
+                        return true
+                    }
+                    document.getElementById("uname_error").style.color = "green"
+
+               }
+            })
+        }
+    }
+    myform.onsubmit = function(){
+        if(check_name() && check_pwd()){
+            return true
+        }else{
+            return false
+        }
+    }
+
+</script>
+</body>
+</html>

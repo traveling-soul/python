@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+<body>
+<form action="/user/regist_handler/" method="POST">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <td>账号</td>
+            <td><input type="text" name="uname"/></td>
+            <td><span id="uname"  style="border: 0; color: red;"></span></td>
+        </tr>
+        <tr>
+            <td>密码</td>
+            <td><input type="password" name="upwd"></td>
+            <td><span id="upwd" style="color: red;"></span></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="注册"/></td>
+            <td><input type="reset" value="重置"/></td>
+        </tr>
+    </table>
+</form>
+<script>
+    /*获取XMLRequest的对象，可以发送异步请求*/
+    var xmlhttp;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    }else {
+        xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+    }
+    /*绑定事件*/
+    xmlhttp.onreadystatechange = function () {
+        if(xmlhttp.readyState==4 && xmlhttp.status==200){
+            alert('OK')
+        }
+    }
+    /*准备并发送*/
+    xmlhttp.open('get','/myhero/hero',true)
+    xmlhttp.send()
+</script>
+</body>
+</html>

@@ -25,7 +25,7 @@ SECRET_KEY = 'z(((2l+t#562)!3p$5vut94j^^sc6(a7gakefach!@_+=yeq4k'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myhero',
+    'user',
 ]
 
 MIDDLEWARE = [
+    'hero.my_middle_ware.FilterIp',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -126,4 +128,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+
+# 要过滤掉的ip
+FILTER_IPS = [
+    '192.168.12.50',
+    '192.168.12.51',
+    '192.168.12.52',
+    '120.0.0.1',
 ]

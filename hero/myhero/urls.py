@@ -2,11 +2,10 @@ from . import views
 from django.conf.urls import url
 
 urlpatterns= [
-    url(r'^login/$', views.login),
-    url(r'^login_handler/$', views.login_handler),
-    url(r'^verification_code/$', views.verification_code),
+    url(r'^index/$', views.index),
     url(r'^book/$', views.book),
     url(r'^hero/$', views.hero),
+    url(r'^hero_page/(\d+)$', views.hero_page),
     url(r'^hero_delete/(\d+)/$', views.hero_delete),
     url(r'^hero_edit/(\d+)/$', views.hero_edit),
     url(r'^hero_edit_handler/(\d+)/$', views.hero_edit_handler),

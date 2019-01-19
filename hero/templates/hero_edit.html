@@ -5,7 +5,7 @@
     <title>编辑英雄</title>
 </head>
 <body>
-<form action="/myhero/hero_edit_handler/{{ hero.id }}/" method="POST">
+<form action="{% if hero %}/myhero/hero_edit_handler/{{ hero.id }}/{% else %}/myhero/hero_add_handler/{% endif %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <table>
         <tr>
@@ -32,6 +32,20 @@
             <td>简介</td>
             <td>
                 <textarea name="hdesc" style="width: 240px; height: 100px;">{{ hero.hdesc }}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>图片</td>
+            <td>
+                {% if hero.hpic %}
+                    <img src="/static/media/{{ hero.hpic }}" style="width: 100px;height: 100px;border-radius: 50%;"/>
+                    <input type="file" name="hpic"/>
+                {% else %}
+                    <input type="file" name="hpic"/>
+                {% endif %}
+            </td>
+             <td>
+                <span name="upload_error" style="color: red;"/>{{ upload_error }}</span>
             </td>
         </tr>
         <tr>

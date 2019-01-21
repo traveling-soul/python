@@ -8,39 +8,14 @@ from django.shortcuts import render, redirect
 from .models import UserInfo
 import hashlib
 import re
+from django.views.generic.base import View
 # Create your views here.
+
 
 def md5_pwd(pwd):
     md5 = hashlib.md5()
     md5.update(pwd.encode('utf-8'))
     return md5.hexdigest()
-
-def regist(request):
-    return render(request, "regist.html")
-
-
-def regist_handler(request):
-    uname = request.POST["uname"]
-    if len(uname) < 6:
-        return render(request, "regist.html")
-    upwd_temp = request.POST["upwd"]
-    if re.match("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$", upwd_temp):
-        upwd = md5_pwd(upwd_temp)
-    else:
-        return render(request, "regist.html")
-    if UserInfo.objects.filter(username=uname).exists():
-        return render(request, "regist.html")
-    else:
-        user = UserInfo()
-        user.username = uname
-        user.password = upwd
-        user.save()
-        return redirect("/user/login")
-
-
-def login(request):
-    print("login....")
-    return render(request, "login.html")
 
 
 def verification_code(request):
@@ -83,37 +58,65 @@ def verification_code(request):
 
     # 放入session中
     request.session['verificationcode'] = rand_str
+    return HttpResponse(buf.getvalue(), 'image/png')
     request.session.set_expiry(0)
 
-    return HttpResponse(buf.getvalue(), 'image/png')
 
+class RegistView(View):
+    def get(self, request):
+        return render(request, "regist.html")
 
-def login_handler(request):
-    request_post = request.POST
-    verificationcode = request_post.get("verificationcode")
-    if request.session["verificationcode"].lower() != verificationcode.lower():
-        code_error = "验证码错误"
-        return render(request, "login.html", {"code_error": code_error})
-
-    uname = request_post.get("uname")
-    upwd_temp = request_post.get("upwd")
-    upwd = md5_pwd(upwd_temp)
-
-    try:
-        user = UserInfo.objects.get(username=uname)
-        if upwd == user.password:
-            return redirect("/myhero/index")
+    def post(self, request):
+        uname = request.POST["uname"]
+        if len(uname) < 6:
+            return render(request, "regist.html")
+        upwd_temp = request.POST["upwd"]
+        if re.match("^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$", upwd_temp):
+            upwd = md5_pwd(upwd_temp)
         else:
-            pwd_error = "密码错误"
-            return render(request, "login.html", {"pwd_error": pwd_error})
-    except Exception:
-        name_error = "账号错误"
-        return render(request, "login.html", {"name_error": name_error})
+            return render(request, "regist.html")
+        if UserInfo.objects.filter(username=uname).exists():
+            return render(request, "regist.html")
+        else:
+            user = UserInfo()
+            user.username = uname
+            user.password = upwd
+            user.save()
+            return redirect("/user/login")
+
+
+class LoginView(View):
+    def get(self, request):
+        print("login....")
+        return render(request, "login.html")
+
+    def post(self, request):
+        request_post = request.POST
+        verificationcode = request_post.get("verificationcode")
+        if request.session["verificationcode"].lower() != verificationcode.lower():
+            code_error = "验证码错误"
+            return render(request, "login.html", {"code_error": code_error})
+
+        uname = request_post.get("uname")
+        upwd_temp = request_post.get("upwd")
+        upwd = md5_pwd(upwd_temp)
+
+        try:
+            user = UserInfo.objects.get(username=uname)
+            if upwd == user.password:
+                return redirect("/myhero/index")
+            else:
+                pwd_error = "密码错误"
+                return render(request, "login.html", {"pwd_error": pwd_error})
+        except Exception:
+            name_error = "账号错误"
+            return render(request, "login.html", {"name_error": name_error})
 
 
 # 退出系统
-def login_out(request):
-    return redirect("/user/login")
+class LogutView(View):
+    def get(self, request):
+        return redirect("/user/login")
 
 
 # 检查用户名是否存在，存在则返回1，否则返回0

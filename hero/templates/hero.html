@@ -25,7 +25,7 @@
                     $.each(hero_list,function(index,value){
                         var id = value.pk
                         var hname = value.fields["hname"]
-                        lis += "<li><a href='/myhero/hero_edit/"+ id + "'>" + hname + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='#'>删除</a></li>"
+                        lis += "<li><a href='/myhero/hero_edit/"+ id + "'>" + hname + "</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='/myhero/hero_delete/"+ id + "'>删除</a></li>"
                     })
 
                     var page_list = data.page_list

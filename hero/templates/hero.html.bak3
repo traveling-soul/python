@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>英雄列表</title>
+    <script src="/static/js/jquery-1.12.4.js"></script>
+    <script src="/static/js/myjs.js"></script>
+</head>
+<body>
+    <ul id="content">
+    </ul>
+    <p id="page">
+    </p>
+<script>
+        function page(page_now=1){
+            my_ajax(url="/myhero/hero_page/"+page_now,callback=function(data){
+                console.log(data)
+                console.log(typeof data)
+                //将Json格式字符串转成Json
+                //data = eval('(' + data + ')')
+                data = JSON.parse(data)
+                console.log(data)
+                console.log(typeof data)
+
+                var hero_list = data.hero_list
+                var lis = ""
+                for(var i = 0; i < hero_list.length; i++){
+                    var id = hero_list[i]["id"]
+                    var hname = hero_list[i]["hname"]
+                    lis += "<li>" + hname + "<li>"
+                }
+
+                var page_list = data.page_list
+                var p_now = data.page_now
+                //console.log(p_now)
+                //console.log(typeof p_now)
+                //console.log(p_now==1)
+
+                var as = ""
+                //for(var i = 0; i < page_list.length; i++){
+                //    var page_now = page_list[i]
+                //    as += '<a href="/myhero/hero_page/'+page_now+'">' + page_now + '</a>'
+               //}
+               // document.getElementById("page").innerHTML = as
+
+                var as = ""
+                var a_tmp = ""
+                if(data.page_prev){
+                    as += '<a href="'+(page_now-1)+'" title="'+(page_now-1)+'" onclick="return false">上一页</a>'
+                }
+                for(var i = 0; i < page_list.length; i++){
+                    var page_now = page_list[i]
+                    if(page_now == p_now){
+                        as += '<span>' + page_now + '</span>'
+                    }
+                    else{
+                        as += '<a href="'+page_now+'" title="'+page_now+'" onclick="return false">' + page_now + '</a>'
+                    }
+                }
+                if(data.page_next){
+                    as += '<a href="'+(page_now+1)+'" title="'+(page_now+1)+'" onclick="return false">下一页</a>'
+                }
+                document.getElementById("content").innerHTML = lis
+                document.getElementById("page").innerHTML = as
+            })
+        }
+        $(function(){
+            page()
+            $("#page").delegate("a", "click", function(){
+                page(this.title)
+            })
+        })
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+

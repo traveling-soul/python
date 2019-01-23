@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>英雄列表</title>
+</head>
+<body>
+    <ul>
+        {% for hero in my_page.object_list %}
+        <li>
+            {{ hero.hname }}&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="/myhero/hero_delete/{{ hero.id }}">删除</a>
+            <a href="/myhero/hero_edit/{{ hero.id }}">编辑</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% if my_page.has_previous %}
+        <a href="/myhero/hero/{{ my_page.previous_page_number }}">上一页</a>
+    {% endif %}
+    {% for i in my_page.paginator.page_range %}
+        {% if my_page.number == i %}
+            <span>{{ i }}</span>
+        {% else %}
+            <a href="/myhero/hero/{{ i }}">{{ i }}</a>
+        {% endif %}
+    {% endfor %}
+    {% if my_page.has_next %}
+        <a href="/myhero/hero/{{ my_page.next_page_number }}">下一页</a>
+    {% endif %}
+</body>
+</html>

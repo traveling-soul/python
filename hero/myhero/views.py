@@ -2,6 +2,7 @@ import time
 from django.core.files.images import ImageFile
 from django.core.paginator import Paginator
 from django.core.serializers import serialize
+from django.forms import Form
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -160,6 +161,24 @@ class HeroEditView(UpdateView):
     success_url = '/myhero/hero_edit'
     fields = ['hname', 'hage', 'hgender', 'hdesc', 'hpic', 'hbook']
     context_object_name = 'hero'
+    extra_context = {'book_list': BookInfo.objects.all()}
+
+    def get_context_object_name(self, obj):
+        return self.context_object_name
+
+    def get(self, request, *args, **kwargs):
+        return render(request, template_name=self.template_name, context=self.extra_context)
+
+
+    def post(self, request, *args, **kwargs):
+        hero = HeroInfo()
+        hero.hname = request.POST['hname']
+        hero.hage = request.POST['hage']
+        hero.hgender = request.POST['hgender']
+        hero.hdesc = request.POST['hdesc']
+        hero.hpic = request.FILES['hpic']
+        hero.save()
+        return redirect('/myhero/hero_list')
 
 
 class HeroAddView(CreateView):
@@ -210,13 +229,38 @@ class HeroAddView(CreateView):
 
     queryset = HeroInfo.objects.all()
     template_name = 'hero_add.html'
-    success_url = '/myhero/hero_list'
+    success_url = '/myhero/hero_list/'
     fields = ['hname', 'hage', 'hgender', 'hdesc', 'hpic', 'hbook']
+    extra_context = {'book_list': BookInfo.objects.all()}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['book_list'] = BookInfo.objects.all()
         return context
+
+    def form_valid(self, form):
+        # form.save()
+        # return redirect(self.success_url)
+        return super().form_valid(form)
+
+    def get(self, request, *args, **kwargs):
+        return render(request, template_name=self.template_name, context=self.extra_context)
+
+    def post(self, request, *args, **kwargs):
+        # print(request.POST)
+        # form = Form(request.POST, request.FILES)
+        # print(form)
+        # if form.is_valid():
+        hero = HeroInfo()
+        hero.hname = request.POST['hname']
+        hero.hage = request.POST['hage']
+        hero.hgender = request.POST['hgender']
+        hero.hdesc = request.POST['hdesc']
+        hero.hpic = request.FILES['hpic']
+        hero.save()
+        return redirect('/myhero/hero_list')
+        # else:
+        #     return HttpResponse('输入错误')
 
     # def form_valid(self, form):
     #     form.instance.author = self.request.user
